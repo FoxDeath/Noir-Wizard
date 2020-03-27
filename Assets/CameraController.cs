@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
         Rotate(controls.Player.CameraRotate.ReadValue<float>());
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
-        transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.1f);
+        transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
     }
 
     private void Rotate(float context)

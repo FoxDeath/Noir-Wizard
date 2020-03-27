@@ -6,36 +6,22 @@ using UnityEngine.InputSystem;
 public class Walking : MonoBehaviour
 {
     CharacterController controller;
+    Input controls;
+    private Vector2 moveInput;
+    private Vector3 move;
 
     [SerializeField] float speed = 5f;
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
+        controls = new Input();
+        controls.Enable();
     }
     private void Update()
     {
-        Move();
-    }
-
-    private void Move() 
-    {
-        Keyboard kb = InputSystem.GetDevice<Keyboard>();
-        if (kb.wKey.isPressed)
-        {
-            controller.Move(speed * transform.forward * Time.deltaTime);
-        }
-        if (kb.sKey.isPressed)
-        {
-            controller.Move(speed * transform.forward * Time.deltaTime * -1);
-        }
-        if (kb.aKey.isPressed)
-        {
-            controller.Move(speed * transform.right * Time.deltaTime * -1);
-        }
-        if (kb.dKey.isPressed)
-        {
-            controller.Move(speed * transform.right * Time.deltaTime);
-        }
+        moveInput = controls.Player.Move.ReadValue<Vector2>();
+        move = new Vector3(moveInput.x, 0, moveInput.y);
+        controller.Move(speed * move * Time.deltaTime);
     }
 }
