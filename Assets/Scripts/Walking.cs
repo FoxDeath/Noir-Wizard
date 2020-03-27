@@ -10,6 +10,13 @@ public class Walking : MonoBehaviour
     private Vector2 moveInput;
     private Vector3 move;
 
+    private bool isWalking;
+
+    public bool GetIsWalking()
+    {
+        return isWalking;
+    }
+
     [SerializeField] float speed = 5f;
 
     private void Start()
@@ -23,5 +30,14 @@ public class Walking : MonoBehaviour
         moveInput = controls.Player.Move.ReadValue<Vector2>();
         move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(speed * move * Time.deltaTime);
+
+        if(moveInput != Vector2.zero)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
     }
 }
