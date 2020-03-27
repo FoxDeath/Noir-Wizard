@@ -27,6 +27,8 @@ public class CameraController : MonoBehaviour
     {
         Rotate(controls.Player.CameraRotate.ReadValue<float>());
 
+        player.rotation = Quaternion.Euler(new Vector3(0f, cameraRotation, 0f));
+
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
         transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
     }

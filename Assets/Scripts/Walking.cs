@@ -21,7 +21,7 @@ public class Walking : MonoBehaviour
     private void Update()
     {
         moveInput = controls.Player.Move.ReadValue<Vector2>();
-        move = new Vector3(moveInput.x, 0, moveInput.y);
+        move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(speed * move * Time.deltaTime);
     }
 }
