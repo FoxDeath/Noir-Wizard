@@ -16,8 +16,8 @@
             ],
             "bindings": [
                 {
-                    "name": "Rotate",
-                    "id": "bf0d629a-3c67-47f6-ba61-80659ce74289",
+                    "name": "1D Axis",
+                    "id": "aaebceda-186a-4ff6-978d-e962ed3c34c1",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -28,7 +28,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "4aa4d9ca-9f83-438a-b587-ea909729dd24",
+                    "id": "04105bec-9ec2-40d2-be65-41314ec346d1",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
@@ -39,7 +39,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "8a6d672a-9c45-49b0-84ce-14dc39b39fe9",
+                    "id": "23fe6493-7cc9-4f38-82a2-146401294541",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
