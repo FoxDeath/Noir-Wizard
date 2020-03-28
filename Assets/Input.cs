@@ -27,6 +27,14 @@ public class @Input : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff5bcd06-50fe-4cc3-b554-94ee9527a060"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""88bb4495-eb46-42b2-a5eb-3490b2dfef81"",
@@ -123,6 +131,17 @@ public class @Input : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21722488-51c2-4d66-b4a4-a7a66f5c6b75"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -132,6 +151,7 @@ public class @Input : IInputActionCollection, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_CameraRotate = m_Player.FindAction("Camera Rotate", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
     }
 
@@ -183,12 +203,14 @@ public class @Input : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_CameraRotate;
+    private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Move;
     public struct PlayerActions
     {
         private @Input m_Wrapper;
         public PlayerActions(@Input wrapper) { m_Wrapper = wrapper; }
         public InputAction @CameraRotate => m_Wrapper.m_Player_CameraRotate;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -202,6 +224,9 @@ public class @Input : IInputActionCollection, IDisposable
                 @CameraRotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraRotate;
                 @CameraRotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraRotate;
                 @CameraRotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraRotate;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
@@ -212,6 +237,9 @@ public class @Input : IInputActionCollection, IDisposable
                 @CameraRotate.started += instance.OnCameraRotate;
                 @CameraRotate.performed += instance.OnCameraRotate;
                 @CameraRotate.canceled += instance.OnCameraRotate;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
@@ -222,6 +250,7 @@ public class @Input : IInputActionCollection, IDisposable
     public interface IPlayerActions
     {
         void OnCameraRotate(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
     }
 }
