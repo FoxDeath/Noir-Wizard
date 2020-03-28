@@ -5,8 +5,8 @@ using System.Collections;
 
 public class Interact : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI nameText;
-    [SerializeField] TextMeshProUGUI interactText;
+    private TextMeshProUGUI nameText;
+    private TextMeshProUGUI interactText;
     private DialogTrigger currentDialogTrigger;
     private DialogManager dialogManager;
     [HideInInspector] public List<Dialog> currentDialogs = new List<Dialog>();

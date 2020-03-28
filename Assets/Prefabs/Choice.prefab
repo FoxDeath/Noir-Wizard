@@ -204,8 +204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Some option
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 131fc6d6c3f27c345b86d521002e6409, type: 2}
-  m_sharedMaterial: {fileID: 5033214239560629991, guid: 131fc6d6c3f27c345b86d521002e6409,
+  m_fontAsset: {fileID: 11400000, guid: 364278af979d2418da0e80f5e135b4d4, type: 2}
+  m_sharedMaterial: {fileID: 1198373599383408839, guid: 364278af979d2418da0e80f5e135b4d4,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
