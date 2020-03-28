@@ -1,0 +1,157 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class DialogManager : MonoBehaviour
+{
+    private Animator uiAnim;
+    private Queue<Sentence> sentences;
+    private TextMeshProUGUI nameText;
+    private TextMeshProUGUI dialogText;
+    private Coroutine currentTypeSentenceCoroutine;
+    private Transform dialogFrame;
+    private Dialog neverMindDialog;
+    private Dialog[] currentDialogs;
+    private Walking playerWalking;
+    private Interact interactController;
+
+    [SerializeField] GameObject choicePrefab;
+    private GameObject choiceGrid;
+    private GameObject continueButton;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        uiAnim = GameObject.Find("UI").GetComponent<Animator>();
+        dialogFrame = GameObject.Find("UI").transform.GetChild(0);
+        dialogFrame.gameObject.SetActive(false);
+        sentences = new Queue<Sentence>();
+        nameText = dialogFrame.GetChild(0).GetComponent<TextMeshProUGUI>();
+        dialogText = dialogFrame.GetChild(1).GetComponent<TextMeshProUGUI>();
+        choiceGrid = dialogFrame.GetChild(2).GetChild(0).gameObject;
+        continueButton = dialogFrame.GetChild(3).gameObject;
+        continueButton.GetComponent<Button>().onClick.AddListener(() => DisplayNextSentence());
+        currentTypeSentenceCoroutine = null;
+        neverMindDialog = new Dialog();
+        neverMindDialog.optionText = "Never mind.";
+        playerWalking = GameObject.Find("Player").GetComponent<Walking>();
+        interactController = GameObject.Find("Player").GetComponent<Interact>();
+    }
+
+    public void InitializeDialogs(Dialog[] dialogs)
+    {
+        //resets choice grid
+        foreach (Transform child in choiceGrid.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        //sets the current dialogs and populates the choices grid
+        currentDialogs = new Dialog[dialogs.Length];
+
+        for(int i = 0; i < dialogs.Length; i++)
+        {
+            currentDialogs[i] = dialogs[i];
+
+            AddChoice(dialogs[i]);
+        }
+
+        //if only one dialog was passed along it starts that automatically
+        if(dialogs.Length == 1)
+        {
+            StartDialog(dialogs[0]);
+        }
+        //otherwise it creates buttons with the current options
+        else
+        {
+            AddChoice(neverMindDialog);
+            playerWalking.SetCanWalk(false);
+            interactController.SetInDialog(true);
+            uiAnim.SetBool("Enabled", true);
+            uiAnim.SetTrigger("ChangeToChoices");
+            uiAnim.SetFloat("OnChoices", 1f);
+        }
+    }
+
+    private void AddChoice(Dialog dialog)
+    {
+        GameObject currentChoice;
+        currentChoice = Instantiate(choicePrefab, choiceGrid.transform);
+        currentChoice.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dialog.optionText;
+        currentChoice.GetComponent<Button>().onClick.AddListener(() => StartDialog(dialog));
+    }
+
+    private void StartDialog(Dialog dialog)
+    {
+        if (dialog.optionText == "Never mind.")
+        {
+            playerWalking.SetCanWalk(true);
+            interactController.SetInDialog(false);
+            uiAnim.SetBool("Enabled", false);
+        }
+        else
+        {
+            playerWalking.SetCanWalk(false);
+            interactController.SetInDialog(true);
+            uiAnim.SetBool("Enabled", true);
+            uiAnim.SetTrigger("ChangeToDialog");
+            uiAnim.SetFloat("OnChoices", -1f);
+
+            this.sentences.Clear();
+
+            foreach (Sentence sentence in dialog.sentences)
+            {
+                this.sentences.Enqueue(sentence);
+            }
+
+            DisplayNextSentence();
+        }
+    }
+
+    public void DisplayNextSentence()
+    {
+        if(sentences.Count == 0)
+        {
+            EndDialog();
+            return;
+        }
+
+        Sentence sentence = sentences.Dequeue();
+        nameText.text = sentence.name;
+
+        if(currentTypeSentenceCoroutine != null)
+        {
+            StopCoroutine(currentTypeSentenceCoroutine);
+        }
+        
+        currentTypeSentenceCoroutine = StartCoroutine(TypeSentence(sentence.line));
+    }
+
+    private void EndDialog()
+    {
+        if (currentDialogs.Length != 1)
+        {
+            InitializeDialogs(currentDialogs);
+        }
+        else
+        {
+            playerWalking.SetCanWalk(true);
+            interactController.SetInDialog(false);
+            uiAnim.SetBool("Enabled", false);
+        }
+    }
+
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        dialogText.text = "";
+
+        foreach(char letter in sentence.ToCharArray())
+        {
+            dialogText.text += letter;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+}

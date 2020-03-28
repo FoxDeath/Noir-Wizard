@@ -11,37 +11,42 @@ public class Walking : MonoBehaviour
     private Vector3 move;
 
     private bool isWalking;
-
-    public bool GetIsWalking()
-    {
-        return isWalking;
-    }
+    private bool canWalk;
 
     [SerializeField] float speed = 5f;
+
+    void Awake()
+    {
+        controls = new Input();
+        controls.Enable();
+    }
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
-        controls = new Input();
-        controls.Enable();
+        canWalk = true;
     }
+
     private void Update()
     {
-        if(!JournalController.inJournal)
+        moveInput = controls.Player.Move.ReadValue<Vector2>();
+
+        if(moveInput != Vector2.zero && canWalk)
         {
-            moveInput = controls.Player.Move.ReadValue<Vector2>();
+            transform.GetChild(0).transform.rotation = Quaternion.Slerp(transform.GetChild(0).transform.rotation, Quaternion.LookRotation(move), 0.1f);
             move = transform.right * moveInput.x + transform.forward * moveInput.y;
             controller.Move(speed * move * Time.deltaTime);
-
-            if(moveInput != Vector2.zero)
-            {
-                transform.GetChild(0).transform.rotation = Quaternion.Slerp(transform.GetChild(0).transform.rotation, Quaternion.LookRotation(move), 0.1f);
-                isWalking = true;
-            }
-            else
-            {
-                isWalking = false;
-            }
+            isWalking = true;
         }
+    }
+
+    public void SetCanWalk(bool state)
+    {
+        canWalk = state;
+    }
+    
+    public bool GetIsWalking()
+    {
+        return isWalking;
     }
 }

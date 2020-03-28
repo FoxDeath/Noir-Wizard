@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Input.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Inputs/Input.inputactions'
 
 using System;
 using System.Collections;
@@ -36,7 +36,7 @@ public class @Input : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""88bb4495-eb46-42b2-a5eb-3490b2dfef81"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -86,7 +86,7 @@ public class @Input : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""WASD"",
                     ""id"": ""b26498bc-bea6-400c-a819-e31e6d6e2900"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -133,6 +133,61 @@ public class @Input : IInputActionCollection, IDisposable
                     ""name"": ""right"",
                     ""id"": ""09801074-7ae0-454d-9b8b-94cb5fa1f55f"",
                     ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrows"",
+                    ""id"": ""3aa0155e-c425-48ab-ae6e-43c132aabd39"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f7ca12ae-4678-4994-8d9a-9227a3e695e0"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d03edfcc-4d65-4e26-b6cd-21213b211a25"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4271eed4-0bf7-4224-a254-5c057242758e"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""5a6915d7-9ce3-48fd-a0e0-2afd88188d43"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

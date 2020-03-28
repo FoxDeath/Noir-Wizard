@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2935499345848710977}
   - component: {fileID: 2935499345848710976}
   - component: {fileID: 2935499345848710982}
-  - component: {fileID: 3325189312143451380}
+  - component: {fileID: 7066933073614800299}
   m_Layer: 0
   m_Name: InteractableObject
-  m_TagString: Interact
+  m_TagString: InteractNPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3.5867312
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3325189312143451380
+--- !u!114 &7066933073614800299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2935499345848710981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d688ba5c767e38449a35c7a76552678d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cb30ec7a24d24695a72990fd8a73a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogs: []
