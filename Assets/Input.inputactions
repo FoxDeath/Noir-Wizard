@@ -14,6 +14,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "ff5bcd06-50fe-4cc3-b554-94ee9527a060",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "88bb4495-eb46-42b2-a5eb-3490b2dfef81",
@@ -110,6 +118,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "21722488-51c2-4d66-b4a4-a7a66f5c6b75",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
