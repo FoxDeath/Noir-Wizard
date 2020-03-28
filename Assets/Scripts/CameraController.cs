@@ -8,7 +8,6 @@ public class CameraController : MonoBehaviour
     private Transform player;
     private Vector3 target_Offset;
     private float cameraRotation;
-    private float cameraZoom;
 
     private Input controls;
 
@@ -27,12 +26,26 @@ public class CameraController : MonoBehaviour
     {
         Rotate(controls.Player.CameraRotate.ReadValue<float>());
 
+        if(player.GetComponent<Walking>().GetIsWalking())
+        {
+            player.rotation = Quaternion.Slerp(player.rotation, Quaternion.Euler(0f, cameraRotation, 0f), 0.1f);
+        }
+
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
-        transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.1f);
+        transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
     }
 
     private void Rotate(float context)
     {
         cameraRotation += context;
+
+        if(cameraRotation >= 360f)
+        {
+            cameraRotation = 1f;
+        }
+        else if(cameraRotation <= 1f)
+        {
+            cameraRotation = 360f;
+        }
     }
 }
