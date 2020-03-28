@@ -19,6 +19,7 @@ public class Walking : MonoBehaviour
     {
         controls = new Input();
         controls.Enable();
+
     }
 
     private void Start()
@@ -27,7 +28,7 @@ public class Walking : MonoBehaviour
         canWalk = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         moveInput = controls.Player.Move.ReadValue<Vector2>();
 
@@ -37,6 +38,10 @@ public class Walking : MonoBehaviour
             move = transform.right * moveInput.x + transform.forward * moveInput.y;
             controller.Move(speed * move * Time.deltaTime);
             isWalking = true;
+        }
+        else if(moveInput == Vector2.zero)
+        {
+            isWalking = false;
         }
     }
 

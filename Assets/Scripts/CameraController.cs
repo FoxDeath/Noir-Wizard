@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(inBar)
         {
@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
             }
 
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
-            transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
+            transform.position = Vector3.Slerp(transform.position, player.position + target_Offset, 0.1f);
         }
 
         FadeWall();
@@ -61,6 +61,11 @@ public class CameraController : MonoBehaviour
 
     private void FadeWall()
     {
+        if(inBar)
+        {
+            return;
+        }
+
         Debug.DrawRay(player.position, (cam.position - player.position) * 4f);
         RaycastHit hit;
         Physics.Raycast(player.position, (cam.position - player.position) * 4f, out hit, 80f, hideLayer);
