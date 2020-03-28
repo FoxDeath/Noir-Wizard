@@ -41,9 +41,9 @@ public class CameraController : MonoBehaviour
 
         if(cameraRotation >= 360f)
         {
-            cameraRotation = 1f;
+            cameraRotation = 0f;
         }
-        else if(cameraRotation <= 1f)
+        else if(cameraRotation <= 0f)
         {
             cameraRotation = 360f;
         }
