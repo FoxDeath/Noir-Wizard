@@ -12,6 +12,8 @@ public class JournalController : MonoBehaviour
     [SerializeField] TimelineAsset timelineBackwards;
     private Input controls;
     private bool open = false;
+
+    public static bool inJournal = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +24,11 @@ public class JournalController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(controls.Player.Journal.triggered && !open)
+        if(controls.Player.Journal.triggered && !open && playable.state != PlayState.Playing)
         {
             StartCoroutine(PlayAnimation());
         }
-        else if(open && controls.Player.Journal.triggered)
+        else if(open && controls.Player.Journal.triggered && playable.state != PlayState.Playing)
         {
             StartCoroutine(PlayAnimationBackwards());
         }
@@ -34,19 +36,23 @@ public class JournalController : MonoBehaviour
 
     private IEnumerator PlayAnimation()
     {
-        playable.Play(timeline, DirectorWrapMode.Hold);
+        playable.Play(timeline);
+        
+        inJournal = true;
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
 
         open = true;
     }
 
     private IEnumerator PlayAnimationBackwards()
     {
-        playable.Play(timelineBackwards, DirectorWrapMode.None);
+        playable.Play(timelineBackwards);
 
         yield return new WaitForSeconds(5f);
 
         open = false;
+        
+        inJournal = false;
     }
 }

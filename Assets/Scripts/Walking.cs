@@ -27,18 +27,21 @@ public class Walking : MonoBehaviour
     }
     private void Update()
     {
-        moveInput = controls.Player.Move.ReadValue<Vector2>();
-        move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        controller.Move(speed * move * Time.deltaTime);
+        if(!JournalController.inJournal)
+        {
+            moveInput = controls.Player.Move.ReadValue<Vector2>();
+            move = transform.right * moveInput.x + transform.forward * moveInput.y;
+            controller.Move(speed * move * Time.deltaTime);
 
-        if(moveInput != Vector2.zero)
-        {
-            transform.GetChild(0).transform.rotation = Quaternion.Slerp(transform.GetChild(0).transform.rotation, Quaternion.LookRotation(move), 0.1f);
-            isWalking = true;
-        }
-        else
-        {
-            isWalking = false;
+            if(moveInput != Vector2.zero)
+            {
+                transform.GetChild(0).transform.rotation = Quaternion.Slerp(transform.GetChild(0).transform.rotation, Quaternion.LookRotation(move), 0.1f);
+                isWalking = true;
+            }
+            else
+            {
+                isWalking = false;
+            }
         }
     }
 }

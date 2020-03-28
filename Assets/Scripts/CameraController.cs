@@ -24,15 +24,19 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Rotate(controls.Player.CameraRotate.ReadValue<float>());
-
-        if(player.GetComponent<Walking>().GetIsWalking())
+        if(!JournalController.inJournal)
         {
-            player.rotation = Quaternion.Slerp(player.rotation, Quaternion.Euler(0f, cameraRotation, 0f), 0.1f);
+            Rotate(controls.Player.CameraRotate.ReadValue<float>());
+
+            if(player.GetComponent<Walking>().GetIsWalking())
+            {
+                player.rotation = Quaternion.Slerp(player.rotation, Quaternion.Euler(0f, cameraRotation, 0f), 0.1f);
+            }
+
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
+            transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
         }
 
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
-        transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
     }
 
     private void Rotate(float context)
