@@ -19597,8 +19597,7 @@ PrefabInstance:
     - target: {fileID: 1191129384, guid: f5f74dacf9ce18d4896d62675a0f9398, type: 3}
       propertyPath: m_PlayableAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 31992a873b7d9a546801c8629095cbe2,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 4233748336187630938, guid: f5f74dacf9ce18d4896d62675a0f9398,
         type: 3}
       propertyPath: orthographic
