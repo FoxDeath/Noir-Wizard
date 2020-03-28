@@ -6,8 +6,17 @@ using UnityEngine.InputSystem;
 public class CameraController : MonoBehaviour
 {
     private Transform player;
+    private Transform cam;
+    private Transform fade;
+    private Transform obstruction;
     private Vector3 target_Offset;
     private float cameraRotation;
+
+    public static bool inBar;
+    
+    [SerializeField] LayerMask barLayer;
+    [SerializeField] LayerMask allLayer;
+    [SerializeField] LayerMask hideLayer;
 
     private Input controls;
 
@@ -15,6 +24,7 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        cam = transform.GetChild(0);
         cameraRotation = transform.eulerAngles.y;
         target_Offset = transform.position - player.position;
         controls = new Input();
@@ -24,15 +34,68 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Rotate(controls.Player.CameraRotate.ReadValue<float>());
-
-        if(player.GetComponent<Walking>().GetIsWalking())
+        if(inBar)
         {
-            player.rotation = Quaternion.Slerp(player.rotation, Quaternion.Euler(0f, cameraRotation, 0f), 0.1f);
+            GetComponentInChildren<Camera>().cullingMask = barLayer;
+        }
+        else
+        {
+            GetComponentInChildren<Camera>().cullingMask =  allLayer;
         }
 
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
-        transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
+        if(!JournalController.inJournal)
+        {
+            Rotate(controls.Player.CameraRotate.ReadValue<float>());
+
+            if(player.GetComponent<Walking>().GetIsWalking())
+            {
+                player.rotation = Quaternion.Slerp(player.rotation, Quaternion.Euler(0f, cameraRotation, 0f), 0.1f);
+            }
+
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
+            transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.05f);
+        }
+
+        FadeWall();
+    }
+
+    private void FadeWall()
+    {
+        Debug.DrawRay(player.position, (cam.position - player.position) * 4f);
+        RaycastHit hit;
+        Physics.Raycast(player.position, (cam.position - player.position) * 4f, out hit, 80f, hideLayer);
+
+        if(hit.collider == null && fade != null)
+        {
+            foreach(MeshRenderer mesh in fade.GetComponentsInChildren<MeshRenderer>())
+            {
+                mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            }
+        }
+
+        if(hit.collider == null)
+        {
+            return;
+        }
+
+        print(hit.collider.name);
+
+        if(fade != hit.collider.transform && fade != null)
+        {
+            foreach(MeshRenderer mesh in fade.GetComponentsInChildren<MeshRenderer>())
+            {
+                mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            }
+        }
+
+        fade = hit.collider.transform;
+
+        MeshRenderer[] meshRenderers = fade.GetComponentsInChildren<MeshRenderer>();
+
+        foreach(MeshRenderer mesh in meshRenderers)
+        {
+            mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        }
     }
 
     private void Rotate(float context)
@@ -41,9 +104,9 @@ public class CameraController : MonoBehaviour
 
         if(cameraRotation >= 360f)
         {
-            cameraRotation = 1f;
+            cameraRotation = 0f;
         }
-        else if(cameraRotation <= 1f)
+        else if(cameraRotation <= 0f)
         {
             cameraRotation = 360f;
         }
