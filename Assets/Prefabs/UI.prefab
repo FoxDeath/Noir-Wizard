@@ -466,8 +466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 269.54, y: -45.8}
-  m_SizeDelta: {x: -541.83, y: -87.41}
+  m_AnchoredPosition: {x: 293.7, y: -48.9}
+  m_SizeDelta: {x: -600.01, y: -87.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7349273889942788761
 CanvasRenderer:
@@ -495,7 +495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press F or click to continue...
+  m_text: Press F to continue...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 364278af979d2418da0e80f5e135b4d4, type: 2}
   m_sharedMaterial: {fileID: 1198373599383408839, guid: 364278af979d2418da0e80f5e135b4d4,
@@ -565,10 +565,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 7349273889942788742}
-    characterCount: 31
+    characterCount: 22
     spriteCount: 0
-    spaceCount: 5
-    wordCount: 6
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -761,7 +761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7349273890310911912
 RectTransform:
   m_ObjectHideFlags: 0

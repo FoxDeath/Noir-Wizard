@@ -14,9 +14,21 @@ public class Interact : MonoBehaviour
 
     private GameObject interactableObject;
 
-    private bool interactedWithDumpster;
     private bool inDialog;
     private bool inRange;
+
+    private static bool talkedToDumpster;
+    private static bool talkedToPileOfAsh;
+    private static bool talkedToPuke;
+    private static bool talkedToToiletDoor;
+    private static bool talkedToBarTable;
+    private static bool talkedToLois;
+    private static bool talkedToBarry;
+    private static bool talkedToArnold;
+    private static bool talkedToSilvester;
+    private static bool talkedToDimitri;
+    private static bool talkedToPhoenix;
+    private static bool talkedToPersonOutside;
 
     void Awake()
     {
@@ -31,8 +43,20 @@ public class Interact : MonoBehaviour
         interactText = GameObject.Find("UI").transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         dialogManager = FindObjectOfType<DialogManager>();
 
-        interactedWithDumpster = false;
         inDialog = false;
+
+        talkedToDumpster = false;
+        talkedToPileOfAsh = false;
+        talkedToPuke = false;
+        talkedToToiletDoor = false;
+        talkedToBarTable = false;
+        talkedToLois = false;
+        talkedToBarry = true;
+        talkedToArnold = false;
+        talkedToSilvester = false;
+        talkedToDimitri = false;
+        talkedToPhoenix = false;
+        talkedToPersonOutside = false;
     }
 
     void Interacting()
@@ -92,24 +116,129 @@ public class Interact : MonoBehaviour
 
     private void SetCurrentDialogs(string name)
     {
-        if (name == "Dumpster")
+        switch(name)
         {
-            interactedWithDumpster = true;
-        }
-        else if (name == "Dimitri")
-        {
-            currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+            case "Dumpster":
+                talkedToDumpster = true;
 
-            if (interactedWithDumpster)
-            {
-                foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                if(talkedToDimitri)
                 {
-                    if (dialog.dependance == "interactedWithDumpster" && interactedWithDumpster)
+                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
                     {
-                        currentDialogs.Add(dialog);
+                        if(dialog.dependance == "talkedToDimitri")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
                     }
                 }
-            }
+                else
+                {
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                }
+
+                break;
+
+            case "Pile Of Ash":
+                talkedToPileOfAsh = true;
+
+                if(talkedToArnold)
+                {
+                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "talkedToArnold")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
+                }
+                else
+                {
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                }
+
+                break;
+
+            case "Puke":
+                talkedToPuke = true;
+
+                if(talkedToBarry)
+                {
+                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "talkedToBarry")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
+                }
+                else
+                {
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                }
+
+                break;
+
+            case "Toilet Door":
+                talkedToToiletDoor = true;
+                currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                break;
+
+            case "Table":
+                talkedToBarTable = true;
+                currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                break;
+
+            case "Lois":
+                talkedToLois = true;
+
+                if(talkedToSilvester)
+                {
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "talkedToSilvester")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
+                }
+                else
+                {
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                }
+
+                break;
+
+            case "Barry":
+                talkedToBarry = true;
+                currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                break;
+
+            case "Arnold":
+                talkedToArnold = true;
+
+                break;
+
+            case "Silvester":
+                talkedToSilvester = true;
+
+                break;
+
+            case "Dimitri":
+                talkedToDimitri = true;
+
+                break;
+
+            case "Phoenix":
+                talkedToPhoenix = true;
+
+                break;
+
+            case "Outsider":
+                talkedToPersonOutside = true;
+
+                break;
         }
     }
 

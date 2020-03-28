@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2674918813918687529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2674918813918687534}
+  - component: {fileID: 2674918813918687532}
+  - component: {fileID: 2674918813918687535}
+  m_Layer: 9
+  m_Name: Barry
+  m_TagString: InteractObject
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2674918813918687534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674918813918687529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2674918813918687532
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674918813918687529}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.028052632
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2674918813918687535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674918813918687529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb30ec7a24d24695a72990fd8a73a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogs:
+  - dependance: initial
+    optionText: 
+    sentences:
+    - name: You
+      line: Hey pal, would you mind answering a few of my questions?
+    - name: Barry
+      line: ZzzZzzzzZzzzzZz...
+    - name: You
+      line: Wake up! I have a few questions for you.
+    - name: Barry
+      line: zzzZZzzZzzZZzZzzzZzz...
+    - name: Pistachio
+      line: MY PARTNER SAID WAKE UP YOU WASTE OF SPACE KNOBHEAD!
+    - name: Barry
+      line: "What? I\u2019m up! I\u2019m here! Hey!"
+    - name: You
+      line: My partner and I have a few questions for you. First of all, how did
+        you get here?
+    - name: Barry
+      line: "I was drinking\u2026 With a buddy of mine in some bar\u2026 Then the
+        next thing I remember is that rat looking thing cussing me out."
+    - name: You
+      line: "(I don\u2019t think we\u2019d be able to get anything useful out of
+        this guy.)"
+    - name: You
+      line: "Thanks\u2026 I guess."
+    - name: Barry
+      line: "zZZZzzzZzZzzzZ\u2026"
