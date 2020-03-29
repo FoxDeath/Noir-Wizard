@@ -16,8 +16,11 @@ public class DialogManager : MonoBehaviour
     private Dialog[] currentDialogs;
     private Walking playerWalking;
     private Interact interactController;
+    private Transform pileOfAsh;
+    private Dialog currentDialog;
 
     [SerializeField] GameObject choicePrefab;
+    [SerializeField] GameObject phoenix;
     private GameObject choiceGrid;
     private GameObject continueButton;
 
@@ -38,6 +41,7 @@ public class DialogManager : MonoBehaviour
         neverMindDialog.optionText = "Never mind.";
         playerWalking = GameObject.Find("Player").GetComponent<Walking>();
         interactController = GameObject.Find("Player").GetComponent<Interact>();
+        pileOfAsh = GameObject.Find("Ash").transform;
     }
 
     public void InitializeDialogs(Dialog[] dialogs)
@@ -85,7 +89,23 @@ public class DialogManager : MonoBehaviour
 
     private void StartDialog(Dialog dialog)
     {
-        if (dialog.optionText == "Never mind.")
+        if (dialog.dependance == "talkedToEveryone")
+        {
+            EndDialog();
+
+            if(dialog.sentences[0].name.ToString() == "true")
+            {
+                interactController.SetMadeRightChoice(true);
+            }
+            else
+            {
+                interactController.SetMadeRightChoice(false);
+            }
+
+            currentDialog = dialog;
+            phoenix.SetActive(true);
+        }
+        else if (dialog.optionText == "Never mind.")
         {
             playerWalking.SetCanWalk(true);
             interactController.SetInDialog(false);
@@ -133,15 +153,22 @@ public class DialogManager : MonoBehaviour
     {
         currentDialogs = interactController.SetCurrentDialogs();
 
-        if (currentDialogs.Length > 1f)
+        if(currentDialogs.Length != 0 && currentDialogs[0].optionText == "phoenix")
         {
-            InitializeDialogs(currentDialogs);
+            print("game ends");
         }
         else
         {
-            playerWalking.SetCanWalk(true);
-            interactController.SetInDialog(false);
-            uiAnim.SetBool("Enabled", false);
+            if (currentDialogs.Length > 1f && (currentDialog != null && currentDialog.dependance != "talkedToEveryone"))
+            {
+                InitializeDialogs(currentDialogs);
+            }
+            else
+            {
+                playerWalking.SetCanWalk(true);
+                interactController.SetInDialog(false);
+                uiAnim.SetBool("Enabled", false);
+            }
         }
     }
 

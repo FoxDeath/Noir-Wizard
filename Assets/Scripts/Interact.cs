@@ -117,6 +117,16 @@ public class Interact : MonoBehaviour
         }
     }
 
+    public void SetMadeRightChoice(bool state)
+    {
+        madeRightChoice = state;
+    }
+
+    public bool GetMadeRightChoice()
+    {
+        return madeRightChoice;
+    }
+
     public Dialog[] SetCurrentDialogs()
     {
         currentDialogs.Clear();
@@ -146,7 +156,18 @@ public class Interact : MonoBehaviour
             case "Pile Of Ash":
                 talkedToPileOfAsh = true;
 
-                if (talkedToArnold)
+                if (talkedToBarry && talkedToArnold && talkedToBarTable && talkedToDimitri && talkedToDumpster && talkedToLois
+                    && talkedToPersonOutside && talkedToPileOfAsh && talkedToPuke && talkedToSilvester)
+                {
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "talkedToEveryone")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
+                }
+                else if (talkedToArnold)
                 {
                     foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                     {

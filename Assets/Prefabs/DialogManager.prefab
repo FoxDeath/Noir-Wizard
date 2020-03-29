@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choicePrefab: {fileID: 35200317274299227, guid: f9be57aa3a98c4542842ec02a20aa4dd,
     type: 3}
+  phoenix: {fileID: 5012639346927078507, guid: 3201d804473f82a4180338f16b1cf2f7, type: 3}
