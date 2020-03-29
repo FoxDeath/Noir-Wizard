@@ -29,6 +29,8 @@ public class Interact : MonoBehaviour
     private static bool talkedToDimitri;
     private static bool talkedToPhoenix;
     private static bool talkedToPersonOutside;
+    private static bool talkedToBarBarOwnerOrDimitriAboutCat;
+    private static bool madeRightChoice;
 
     void Awake()
     {
@@ -44,7 +46,6 @@ public class Interact : MonoBehaviour
         dialogManager = FindObjectOfType<DialogManager>();
 
         inDialog = false;
-
         talkedToDumpster = false;
         talkedToPileOfAsh = false;
         talkedToPuke = false;
@@ -57,6 +58,7 @@ public class Interact : MonoBehaviour
         talkedToDimitri = false;
         talkedToPhoenix = false;
         talkedToPersonOutside = false;
+        talkedToBarBarOwnerOrDimitriAboutCat = false;
     }
 
     void Interacting()
@@ -104,7 +106,7 @@ public class Interact : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag.Equals("InteractObject") || other.gameObject.tag.Equals("InteractNPC"))
+        if(other.gameObject.tag.Equals("InteractObject"))
         {
             interactableObject = null;
             inRange = false;
@@ -193,11 +195,12 @@ public class Interact : MonoBehaviour
 
                 if(talkedToSilvester)
                 {
+                    talkedToBarBarOwnerOrDimitriAboutCat = true;
                     currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
 
-                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
                     {
-                        if (dialog.dependance == "talkedToSilvester")
+                        if(dialog.dependance == "talkedToSilvester")
                         {
                             currentDialogs.Add(dialog);
                         }
@@ -217,16 +220,57 @@ public class Interact : MonoBehaviour
 
             case "Arnold":
                 talkedToArnold = true;
-
+                currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
 
             case "Silvester":
                 talkedToSilvester = true;
+                currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+
+                if(talkedToDimitri)
+                {
+                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "talkedToDimitri")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
+                }
+
+                if(talkedToBarBarOwnerOrDimitriAboutCat)
+                {
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "talkedToBarBarOwnerOrDimitriAboutCat")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
+                }
 
                 break;
 
             case "Dimitri":
                 talkedToDimitri = true;
+
+                if (talkedToSilvester)
+                {
+                    talkedToBarBarOwnerOrDimitriAboutCat = true;
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "talkedToSilvester")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
+                }
+                else
+                {
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                }
 
                 break;
 
@@ -237,7 +281,7 @@ public class Interact : MonoBehaviour
 
             case "Outsider":
                 talkedToPersonOutside = true;
-
+                currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
         }
     }

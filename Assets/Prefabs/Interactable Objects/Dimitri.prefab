@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6274038397053793390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 762023666519451427}
+  - component: {fileID: 1763272552005127790}
+  - component: {fileID: 2915651660358500270}
+  m_Layer: 9
+  m_Name: Dimitri
+  m_TagString: InteractObject
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &762023666519451427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6274038397053793390}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1763272552005127790
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6274038397053793390}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.044851914
+  m_Center: {x: 0, y: -4.290494e-10, z: 0}
+--- !u!114 &2915651660358500270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6274038397053793390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb30ec7a24d24695a72990fd8a73a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogs:
+  - dependance: initial
+    optionText: Let's get the basics again.
+    sentences:
+    - name: You
+      line: Do you know what happened here since you are living right above the crime
+        scene?
+    - name: Dimitri
+      line: Dimitri do and hear nothing, why am I here?
+    - name: You
+      line: You sure heard something, there was a fire right below your window. If
+        you are lyingf there will be consequences.
+    - name: Dimitri
+      line: Ok, I tell truth. There was noise in alley and I throw molotov to stop
+        noise, like in Old Country.
+    - name: Dimitri
+      line: Was drinking and made quick grenade, normal stuff for my people.
+    - name: You
+      line: "So you threw an incendiary grenade into the alley? Tell me why I shouldn\u2019t
+        arrest you now for the murder of a familiar?"
+    - name: Dimitri
+      line: I do not kill nothing. Garbage took fire, not familiar. Noise still stoped
+        anyway after throw. Dumpster far from corpse.
+  - dependance: talkedToSilvester
+    optionText: What about the black cat?
+    sentences:
+    - name: You
+      line: Know anything about a stray familiar living around this place?
+    - name: Dimitri
+      line: Why would majestic familiar live in trash, when have magic? Only saw
+        small normal rats around here and in me house.
+    - name: You
+      line: Are you sure you never saw a black cat here?
+    - name: Dimitri
+      line: Black cat, bad omen. *spits on ground*
+    - name: Pistachio
+      line: At least we can agree on that.

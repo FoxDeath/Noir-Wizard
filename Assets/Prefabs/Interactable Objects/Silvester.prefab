@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &472254425360273568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 472254425360274271}
+  - component: {fileID: 472254425360274269}
+  - component: {fileID: 472254425360274270}
+  m_Layer: 9
+  m_Name: Silvester
+  m_TagString: InteractObject
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &472254425360274271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472254425360273568}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &472254425360274269
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472254425360273568}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 11.864436
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &472254425360274270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472254425360273568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb30ec7a24d24695a72990fd8a73a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogs:
+  - dependance: initial
+    optionText: Let's get the basics again.
+    sentences:
+    - name: Pistachio
+      line: "I sense walking trash\u2026"
+    - name: You
+      line: What are you doing in the dumpster?
+    - name: Silvester
+      line: What do you mean? I live here.
+    - name: Pistachio
+      line: "I don\u2019t think so pal, you\u2019re clean for a homeless cat..."
+    - name: Silvester
+      line: Who are you and what do you want?
+    - name: You
+      line: "I\u2019m from The Bureau of Wizardry on an official case. I need to
+        ask you a few questions."
+    - name: Silvester
+      line: Like what?
+    - name: You
+      line: Did you see anyone entering this alley?
+    - name: Silvester
+      line: That drunken fella, there, is the only one that came around. I went to
+        try and help him, but by the time I got near, he just passed out.
+    - name: Silvester
+      line: "Couldn\u2019t wake him up, so my plan was to wait for him to get up
+        on his own."
+    - name: You
+      line: "Hmm... He might know something. I\u2019ll try my luck."
+  - dependance: talkedToDimitri
+    optionText: Any weird noises?
+    sentences:
+    - name: You
+      line: "Are you sure you didn\u2019t hear anything weird or suspicious during
+        the night?"
+    - name: Silvester
+      line: Only thing I heard was this fella puking his brains out. Nothing more.
+    - name: You
+      line: I see. Thanks for the input.
+    - name: Pistachio
+      line: "This guy is full of it. I don\u2019t trust him, and not only because
+        that thing is a cat."
+  - dependance: talkedToBarBarOwnerOrDimitriAboutCat
+    optionText: Drive the point home.
+    sentences:
+    - name: You
+      line: You are either good at hiding or lying. Did you really not hear anything
+        this night?
+    - name: You
+      line: ' I thought cats have good hearing, and fires are usually quite loud.'
+    - name: Silvester
+      line: "I already told you once. I only took care of this fella over there,
+        he could\u2019ve been in trouble. That\u2019s it."
