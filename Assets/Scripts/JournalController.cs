@@ -24,6 +24,11 @@ public class JournalController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!MainMenu.GameStarted)
+        {
+            return;
+        }
+
         if(controls.Player.Journal.triggered && !open && playable.state != PlayState.Playing)
         {
             StartCoroutine(PlayAnimation());

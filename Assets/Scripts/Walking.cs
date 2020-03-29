@@ -30,7 +30,17 @@ public class Walking : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(!MainMenu.GameStarted)
+        {
+            return;
+        }
+
         moveInput = controls.Player.Move.ReadValue<Vector2>();
+
+        if(JournalController.inJournal )
+        {
+            canWalk = false;
+        }
 
         if(moveInput != Vector2.zero && canWalk)
         {

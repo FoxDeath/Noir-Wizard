@@ -20,13 +20,16 @@ public class CameraController : MonoBehaviour
 
     private Input controls;
 
+    private Vector3 defaultPossition;
+    private Quaternion defaultRotation;
+    private bool valuesSet = false;
+
     // Start is called before the first frame update
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         cam = transform.GetChild(0);
-        cameraRotation = transform.eulerAngles.y;
-        target_Offset = transform.position - player.position;
+        cameraRotation = 4f;
         controls = new Input();
         controls.Enable();
     }
@@ -34,6 +37,17 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(!MainMenu.GameStarted)
+        {
+            return;
+        }
+
+        if(transform.position != defaultPossition && !valuesSet)
+        {
+            SetValues();
+            return;
+        }
+
         if(inBar)
         {
             GetComponentInChildren<Camera>().cullingMask = barLayer;
@@ -53,7 +67,7 @@ public class CameraController : MonoBehaviour
             }
 
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraRotation, transform.eulerAngles.z);
-            transform.position = Vector3.Slerp(transform.position, player.position + target_Offset, 0.1f);
+            transform.position = Vector3.Lerp(transform.position, player.position + target_Offset, 0.1f);
         }
 
         FadeWall();
@@ -115,5 +129,19 @@ public class CameraController : MonoBehaviour
         {
             cameraRotation = 360f;
         }
+    }
+
+    public void GetValues()
+    {
+        defaultPossition = transform.position;
+        defaultRotation = transform.rotation;
+    }
+
+    public void SetValues()
+    {
+        transform.position = defaultPossition;
+        transform.rotation = Quaternion.Euler(30f, 4f, 0f);
+        target_Offset = transform.position - player.position;
+        valuesSet = true;
     }
 }
