@@ -19,10 +19,9 @@ public class Walking : MonoBehaviour
     {
         controls = new Input();
         controls.Enable();
-
     }
 
-    private void Start()
+    public void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
         canWalk = true;
@@ -37,7 +36,7 @@ public class Walking : MonoBehaviour
 
         moveInput = controls.Player.Move.ReadValue<Vector2>();
 
-        if(JournalController.inJournal )
+        if(JournalController.inJournal)
         {
             canWalk = false;
         }

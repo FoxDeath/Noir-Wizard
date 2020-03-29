@@ -131,7 +131,9 @@ public class DialogManager : MonoBehaviour
 
     private void EndDialog()
     {
-        if (currentDialogs.Length != 1)
+        currentDialogs = interactController.SetCurrentDialogs();
+
+        if (currentDialogs.Length > 1f)
         {
             InitializeDialogs(currentDialogs);
         }

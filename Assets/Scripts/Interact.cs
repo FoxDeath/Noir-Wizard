@@ -14,9 +14,10 @@ public class Interact : MonoBehaviour
 
     private GameObject interactableObject;
 
+    private string currentInteract;
+
     private bool inDialog;
     private bool inRange;
-
     private static bool talkedToDumpster;
     private static bool talkedToPileOfAsh;
     private static bool talkedToPuke;
@@ -61,9 +62,9 @@ public class Interact : MonoBehaviour
         talkedToBarBarOwnerOrDimitriAboutCat = false;
     }
 
-    void Interacting()
+    public void Interacting()
     {
-        if(inDialog)
+        if (inDialog)
         {
             dialogManager.DisplayNextSentence();
         }
@@ -88,10 +89,10 @@ public class Interact : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag.Equals("InteractObject"))
+        if (other.gameObject.tag.Equals("InteractObject"))
         {
-            currentDialogs.Clear();
             interactableObject = other.gameObject;
+            currentInteract = other.name;
             currentDialogTrigger = interactableObject.GetComponent<DialogTrigger>();
             inRange = true;
 
@@ -100,13 +101,13 @@ public class Interact : MonoBehaviour
             interactText.gameObject.SetActive(true);
             nameText.gameObject.SetActive(true);
 
-            SetCurrentDialogs(other.name);
+            SetCurrentDialogs();
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag.Equals("InteractObject"))
+        if (other.gameObject.tag.Equals("InteractObject"))
         {
             interactableObject = null;
             inRange = false;
@@ -116,18 +117,20 @@ public class Interact : MonoBehaviour
         }
     }
 
-    private void SetCurrentDialogs(string name)
+    public Dialog[] SetCurrentDialogs()
     {
-        switch(name)
+        currentDialogs.Clear();
+
+        switch (currentInteract)
         {
             case "Dumpster":
                 talkedToDumpster = true;
 
-                if(talkedToDimitri)
+                if (talkedToDimitri)
                 {
-                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                     {
-                        if(dialog.dependance == "talkedToDimitri")
+                        if (dialog.dependance == "talkedToDimitri")
                         {
                             currentDialogs.Add(dialog);
                         }
@@ -143,9 +146,9 @@ public class Interact : MonoBehaviour
             case "Pile Of Ash":
                 talkedToPileOfAsh = true;
 
-                if(talkedToArnold)
+                if (talkedToArnold)
                 {
-                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                     {
                         if (dialog.dependance == "talkedToArnold")
                         {
@@ -163,9 +166,9 @@ public class Interact : MonoBehaviour
             case "Puke":
                 talkedToPuke = true;
 
-                if(talkedToBarry)
+                if (talkedToBarry)
                 {
-                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                     {
                         if (dialog.dependance == "talkedToBarry")
                         {
@@ -191,24 +194,30 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Lois":
-                talkedToLois = true;
-
-                if(talkedToSilvester)
+                if (!talkedToLois)
                 {
-                    talkedToBarBarOwnerOrDimitriAboutCat = true;
                     currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
-
-                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
-                    {
-                        if(dialog.dependance == "talkedToSilvester")
-                        {
-                            currentDialogs.Add(dialog);
-                        }
-                    }
+                    talkedToLois = true;
                 }
                 else
                 {
-                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                    if (talkedToSilvester)
+                    {
+                        talkedToBarBarOwnerOrDimitriAboutCat = true;
+                        currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+
+                        foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                        {
+                            if (dialog.dependance == "talkedToSilvester")
+                            {
+                                currentDialogs.Add(dialog);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                    }
                 }
 
                 break;
@@ -224,27 +233,33 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Silvester":
-                talkedToSilvester = true;
-                currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
-
-                if(talkedToDimitri)
+                if (!talkedToSilvester)
                 {
-                    foreach(Dialog dialog in currentDialogTrigger.GetDialogs())
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                    talkedToSilvester = true;
+                }
+                else
+                {
+                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+
+                    if (talkedToDimitri)
                     {
-                        if (dialog.dependance == "talkedToDimitri")
+                        foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                         {
-                            currentDialogs.Add(dialog);
+                            if (dialog.dependance == "talkedToDimitri")
+                            {
+                                currentDialogs.Add(dialog);
+                            }
                         }
                     }
-                }
-
-                if(talkedToBarBarOwnerOrDimitriAboutCat)
-                {
-                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                    if (talkedToBarBarOwnerOrDimitriAboutCat)
                     {
-                        if (dialog.dependance == "talkedToBarBarOwnerOrDimitriAboutCat")
+                        foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                         {
-                            currentDialogs.Add(dialog);
+                            if (dialog.dependance == "talkedToBarBarOwnerOrDimitriAboutCat")
+                            {
+                                currentDialogs.Add(dialog);
+                            }
                         }
                     }
                 }
@@ -252,16 +267,42 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Dimitri":
-                talkedToDimitri = true;
-
-                if (talkedToSilvester)
+                if (!talkedToDimitri)
                 {
-                    talkedToBarBarOwnerOrDimitriAboutCat = true;
                     currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                    talkedToDimitri = true;
+                }
+                else
+                {
+                    if (talkedToSilvester)
+                    {
+                        talkedToBarBarOwnerOrDimitriAboutCat = true;
+                        currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
 
+                        foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                        {
+                            if (dialog.dependance == "talkedToSilvester")
+                            {
+                                currentDialogs.Add(dialog);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                    }
+                }
+
+                break;
+
+            case "Phoenix":
+                talkedToPhoenix = true;
+
+                if (madeRightChoice)
+                {
                     foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                     {
-                        if (dialog.dependance == "talkedToSilvester")
+                        if (dialog.dependance == "madeRightChoiceTrue")
                         {
                             currentDialogs.Add(dialog);
                         }
@@ -269,13 +310,14 @@ public class Interact : MonoBehaviour
                 }
                 else
                 {
-                    currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
+                    foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
+                    {
+                        if (dialog.dependance == "madeRightChoiceFalse")
+                        {
+                            currentDialogs.Add(dialog);
+                        }
+                    }
                 }
-
-                break;
-
-            case "Phoenix":
-                talkedToPhoenix = true;
 
                 break;
 
@@ -284,6 +326,8 @@ public class Interact : MonoBehaviour
                 currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
         }
+
+        return currentDialogs.ToArray();
     }
 
     public void SetInDialog(bool state)

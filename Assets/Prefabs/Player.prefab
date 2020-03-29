@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6631224410550674728}
   - component: {fileID: 6631224410550674731}
   - component: {fileID: 6631224410550674730}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6631224411185331721}
   - component: {fileID: 6631224411185331724}
   - component: {fileID: 6631224411185331727}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,8 @@ GameObject:
   - component: {fileID: 6631224411400482101}
   - component: {fileID: 6631224411400482100}
   - component: {fileID: 6631224411400482107}
-  m_Layer: 0
+  - component: {fileID: 1954383975}
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -201,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 6631224411400482103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 6631224411185331721}
   m_Father: {fileID: 0}
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb24451062c30d409a03b90ec052e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 15
 --- !u!114 &6631224411400482107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +251,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02254b98cb3229149b83171410ff6a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  interactText: {fileID: 0}
   currentDialogs: []
+--- !u!114 &1954383975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6631224411400482103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7674af693aea754b926cb2188c3c95f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playable: {fileID: 0}
+  timeline: {fileID: 11400000, guid: 67b5ff46673a23844911cfcb0a2762b1, type: 2}
+  timelineBackwards: {fileID: 11400000, guid: 31992a873b7d9a546801c8629095cbe2, type: 2}
