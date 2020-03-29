@@ -52,7 +52,7 @@ public class Interact : MonoBehaviour
         talkedToToiletDoor = false;
         talkedToBarTable = false;
         talkedToLois = false;
-        talkedToBarry = true;
+        talkedToBarry = false;
         talkedToArnold = false;
         talkedToSilvester = false;
         talkedToDimitri = false;

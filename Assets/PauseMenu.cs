@@ -23,6 +23,11 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        if(!MainMenu.GameStarted)
+        {
+            return;
+        }
+
         if(control.Player.Pause.triggered)
         {
             if(GameIsPaused)
