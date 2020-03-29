@@ -32,12 +32,13 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.source.playOnAwake = s.playOnStart;
         }
     }
 
     /*Playing the sound whose name is the string "name" 
     and also giving the posibility to change the audio source with the optional paramarer "source" */
-    public void Play(string name, AudioSource source = null)
+    public void Play(string name)
     {
         if(PauseMenu.GameIsPaused)
         {
@@ -49,15 +50,6 @@ public class AudioManager : MonoBehaviour
         if(s == null)
         {
             return;
-        }
-
-        if(source != null)
-        {
-            s.source = source;
-            s.source.clip = s.clip;
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
         }
 
         s.source.Play();

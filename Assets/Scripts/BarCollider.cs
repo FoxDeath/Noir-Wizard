@@ -5,6 +5,20 @@ using UnityEngine;
 public class BarCollider : MonoBehaviour
 {
 
+    void Update()
+    {
+        if(CameraController.inBar)
+        {
+            foreach(MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+            {
+                if(mesh.shadowCastingMode != UnityEngine.Rendering.ShadowCastingMode.On)
+                {
+                    mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                }
+            }
+        }
+    }
+
 
     // Update is called once per frame
     void OnTriggerEnter(Collider collider)

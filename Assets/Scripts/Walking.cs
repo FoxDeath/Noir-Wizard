@@ -7,6 +7,7 @@ public class Walking : MonoBehaviour
 {
     CharacterController controller;
     Input controls;
+    Animator anim;
     private Vector2 moveInput;
     private Vector3 move;
 
@@ -14,6 +15,8 @@ public class Walking : MonoBehaviour
     private bool canWalk;
 
     [SerializeField] float speed = 5f;
+
+    AudioManager audioManager;
 
     void Awake()
     {
@@ -24,6 +27,8 @@ public class Walking : MonoBehaviour
     public void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
         canWalk = true;
     }
 
@@ -46,10 +51,17 @@ public class Walking : MonoBehaviour
             transform.GetChild(0).transform.rotation = Quaternion.Slerp(transform.GetChild(0).transform.rotation, Quaternion.LookRotation(move), 0.1f);
             move = transform.right * moveInput.x + transform.forward * moveInput.y;
             controller.Move(speed * move * Time.deltaTime);
+            anim.SetBool("isWalking", true);
             isWalking = true;
+            if(!audioManager.IsPlaying("walk2"))
+            {
+                audioManager.Play("walk2");
+            }
         }
         else if(moveInput == Vector2.zero)
         {
+            anim.SetBool("isWalking", false);
+            audioManager.Stop("walk2");
             isWalking = false;
         }
     }

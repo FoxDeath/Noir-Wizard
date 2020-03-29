@@ -16,6 +16,7 @@ public class Sound
 
     public bool loop;
     public bool isPlaying;
+    public bool playOnStart;
 
     public AudioSource source;
 }
