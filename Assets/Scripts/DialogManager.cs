@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
+    private AudioManager AudioManager;
+    
     private Animator uiAnim;
     private Queue<Sentence> sentences;
     private TextMeshProUGUI nameText;
@@ -27,6 +29,8 @@ public class DialogManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager = AudioManager.instance;
+
         uiAnim = GameObject.Find("UI").GetComponent<Animator>();
         dialogFrame = GameObject.Find("UI").transform.GetChild(0);
         dialogFrame.gameObject.SetActive(false);
@@ -146,7 +150,7 @@ public class DialogManager : MonoBehaviour
             StopCoroutine(currentTypeSentenceCoroutine);
         }
         
-        currentTypeSentenceCoroutine = StartCoroutine(TypeSentence(sentence.line));
+        currentTypeSentenceCoroutine = StartCoroutine(TypeSentence(sentence));
     }
 
     private void EndDialog()
@@ -168,19 +172,33 @@ public class DialogManager : MonoBehaviour
                 playerWalking.SetCanWalk(true);
                 interactController.SetInDialog(false);
                 uiAnim.SetBool("Enabled", false);
+                
+                StopCoroutine(currentTypeSentenceCoroutine);
             }
         }
     }
 
 
-    IEnumerator TypeSentence(string sentence)
+    IEnumerator TypeSentence(Sentence sentence)
     {
         dialogText.text = "";
 
-        foreach(char letter in sentence.ToCharArray())
+        int i = 0;
+        
+        foreach(char letter in sentence.line)
         {
+            i++;
+
+            if(i == 6)
+            {
+                i = 0;
+                
+                AudioManager.SetPitch("Talk", Random.Range(sentence.pitch - 0.1f, sentence.pitch + 0.1f));
+                
+                AudioManager.Play("Talk");
+            }
             dialogText.text += letter;
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSecondsRealtime(0.015f);
         }
     }
 }

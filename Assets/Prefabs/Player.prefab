@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6631224411400482101}
   - component: {fileID: 6631224411400482100}
   - component: {fileID: 6631224411400482107}
-  - component: {fileID: 1954383975}
+  - component: {fileID: 5145222778801983061}
+  - component: {fileID: 1723515491075771348}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -30,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -78,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDialogs: []
---- !u!114 &1954383975
+--- !u!114 &5145222778801983061
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,3 +95,66 @@ MonoBehaviour:
   playable: {fileID: 0}
   timeline: {fileID: 11400000, guid: 67b5ff46673a23844911cfcb0a2762b1, type: 2}
   timelineBackwards: {fileID: 11400000, guid: 31992a873b7d9a546801c8629095cbe2, type: 2}
+--- !u!114 &1723515491075771348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6631224411400482103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 0da4a1213674a6a478c08827a668497b,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 300e1f56-75a7-4e1b-b7e1-bf4bc3718707
+    m_ActionName: Player/Camera Rotate[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6631224411400482107}
+        m_TargetAssemblyTypeName: Interact, Assembly-CSharp
+        m_MethodName: Interacting
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ff5bcd06-50fe-4cc3-b554-94ee9527a060
+    m_ActionName: Player/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 88bb4495-eb46-42b2-a5eb-3490b2dfef81
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 873910dd-91c7-4356-8d94-4591d4e45688
+    m_ActionName: Player/Journal[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 188c8cea-e597-42e1-a5ce-92cdc2df75ea
+    m_ActionName: Player/Pause[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

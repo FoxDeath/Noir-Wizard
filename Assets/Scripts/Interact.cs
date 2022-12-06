@@ -2,6 +2,8 @@
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
+using UnityEngine.InputSystem;
 
 public class Interact : MonoBehaviour
 {
@@ -10,7 +12,6 @@ public class Interact : MonoBehaviour
     private DialogTrigger currentDialogTrigger;
     private DialogManager dialogManager;
     [HideInInspector] public List<Dialog> currentDialogs = new List<Dialog>();
-    public Input controls;
 
     private GameObject interactableObject;
 
@@ -32,13 +33,6 @@ public class Interact : MonoBehaviour
     private static bool talkedToPersonOutside;
     private static bool talkedToBarBarOwnerOrDimitriAboutCat;
     private static bool madeRightChoice;
-
-    void Awake()
-    {
-        controls = new Input();
-        controls.Enable();
-        controls.Player.Interact.performed += _ => Interacting();
-    }
 
     void Start()
     {
@@ -62,8 +56,13 @@ public class Interact : MonoBehaviour
         talkedToBarBarOwnerOrDimitriAboutCat = false;
     }
 
-    public void Interacting()
+    public void Interacting(InputAction.CallbackContext context)
     {
+        if(context.phase != InputActionPhase.Started)
+        {
+            return;
+        }
+        
         if (inDialog)
         {
             dialogManager.DisplayNextSentence();
