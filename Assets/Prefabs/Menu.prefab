@@ -872,26 +872,36 @@ MonoBehaviour:
     sentences:
     - name: '?'
       line: Another day, another case, huh?
+      pitch: 1
     - name: You
       line: I guess so!?
+      pitch: 1
     - name: '?'
       line: 'A never-ending war fought against the filth of this society on these
         shady shady streets. '
+      pitch: 1
     - name: You
       line: "Couldn\u2019t have put it better myself."
+      pitch: 1
     - name: You
       line: Who are you by the way?
+      pitch: 1
     - name: Pistachio
       line: "Pistachio\u2026"
+      pitch: 1
     - name: Pistachio
       line: "The rat on your shoulder... Your partner\u2026"
+      pitch: 1
     - name: Pistachio
       line: I thought Dementia should leave you alone for a couple more years. Guess
         I was wrong.
+      pitch: 1
     - name: You
       line: 'Okay, okay. Got it. '
+      pitch: 1
     - name: Pistachio
       line: "Let\u2019s just solve this case quickly and have it over with."
+      pitch: 1
 --- !u!1 &7509383332716991559
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,7 +1002,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

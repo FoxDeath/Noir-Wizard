@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 {
     private Transform player;
     private Camera cam;
+    private Transform boxCenter;
     private Transform obstruction;
     private Vector3 target_Offset;
     private float cameraRotation;
@@ -33,6 +34,7 @@ public class CameraController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         cam = transform.GetChild(0).GetComponent<Camera>();
+        boxCenter = transform.GetChild(1);
         cameraRotation = 4f;
         controls = new Input();
         controls.Enable();
@@ -83,25 +85,14 @@ public class CameraController : MonoBehaviour
         {
             return;
         }
-
-        Vector3 n1 = cam.ViewportToWorldPoint(new Vector3(1,1,cam.nearClipPlane));
-        Vector3 n2 = cam.ViewportToWorldPoint(new Vector3(1,0,cam.nearClipPlane));
-        Vector3 n3 = cam.ViewportToWorldPoint(new Vector3(0,1,cam.nearClipPlane));
-        Vector3 n4 = cam.ViewportToWorldPoint(new Vector3(0,0,cam.nearClipPlane));
-
-        Debug.DrawRay(player.position, (n1 - player.position));
-        Debug.DrawRay(player.position, (n2 - player.position));
-        Debug.DrawRay(player.position, (n3 - player.position));
-        Debug.DrawRay(player.position, (n4 - player.position));
         
-        RaycastHit[] hit1 = Physics.RaycastAll(player.position, (n1 - player.position) * 4f, 500f, hideLayer);
-        RaycastHit[] hit2 = Physics.RaycastAll(player.position, (n2 - player.position) * 4f, 500f, hideLayer);
-        RaycastHit[] hit3 = Physics.RaycastAll(player.position, (n3 - player.position) * 4f, 500f, hideLayer);
-        RaycastHit[] hit4 = Physics.RaycastAll(player.position, (n4 - player.position) * 4f, 500f, hideLayer);
+        RaycastHit[] hitBox = Physics.BoxCastAll(boxCenter.position, new Vector3(1.6f, 0.9f, 0f) * 20, -cam.transform.forward, cam.transform.rotation, 200f, hideLayer);
+        
+        RaycastHit[] hitRay = Physics.RaycastAll(player.position, cam.transform.position - player.position, 260f, hideLayer);
 
         List<RaycastHit> hits = new();
 
-        if(hit1.Length != 0)
+        /*if(hit1.Length != 0)
         {
             hits.AddRange(hit1);
         }
@@ -119,12 +110,22 @@ public class CameraController : MonoBehaviour
         if(hit4.Length != 0)
         {
             hits.AddRange(hit4);
+        }*/
+
+        if(hitBox.Length != 0)
+        {
+            hits.AddRange(hitBox);
         }
+        
+        if(hitRay.Length != 0)
+        {
+            hits.AddRange(hitRay);
+        }
+        
+        List<Transform> newFade = fade;
 
         if(fade.Count != 0)
         {
-            List<Transform> newFade = fade;
-
             foreach(var f in fade)
             {
                 bool b = false;
@@ -147,10 +148,10 @@ public class CameraController : MonoBehaviour
                     newFade.Remove(f);
                 }
             }
-
-            fade = newFade;
         }
         
+        fade = newFade;
+
         foreach(var hit in hits)
         {
             if(hit.collider && !fade.Contains(hit.collider.transform))
