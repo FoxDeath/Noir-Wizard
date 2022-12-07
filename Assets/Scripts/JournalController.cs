@@ -8,12 +8,19 @@ using UnityEngine.Playables;
 public class JournalController : MonoBehaviour
 {
     [SerializeField] PlayableDirector playable;
-    [SerializeField] TimelineAsset timeline;
-    [SerializeField] TimelineAsset timelineBackwards;
+    [SerializeField] TimelineAsset openJournalTimeline;
+    [SerializeField] TimelineAsset closeJournalTimeline;
+    [SerializeField] TimelineAsset nextPageTimeline;
+    [SerializeField] TimelineAsset previousPageTimeline;
     private Input controls;
     private bool open = false;
 
     public static bool inJournal = false;
+
+    private int page = 1;
+    private int lastPage = 2;
+    
+        
     // Start is called before the first frame update
     void Start()
     {
@@ -31,17 +38,61 @@ public class JournalController : MonoBehaviour
 
         if(controls.Player.Journal.triggered && !open && playable.state != PlayState.Playing)
         {
-            StartCoroutine(PlayAnimation());
+            StartCoroutine(OpenJournalAnimation());
         }
         else if(open && controls.Player.Journal.triggered && playable.state != PlayState.Playing)
         {
-            StartCoroutine(PlayAnimationBackwards());
+            StartCoroutine(CloseJournalAnimation());
+        }
+
+        if(open && playable.state != PlayState.Playing)
+        {
+            if(controls.Player.NextPage.triggered && page != lastPage)
+            {
+                StartCoroutine(NextPageAnimation());
+            }
+            if(controls.Player.PreviousPage.triggered && page != 1)
+            {
+                StartCoroutine(PreviousPageAnimation());
+            }
         }
     }
 
-    private IEnumerator PlayAnimation()
+    private void SetPageText()
     {
-        playable.Play(timeline, DirectorWrapMode.Hold);
+        
+    }
+
+    private IEnumerator NextPageAnimation()
+    {
+        playable.Play(nextPageTimeline, DirectorWrapMode.Hold);
+
+        page++;
+        
+        SetPageText();
+
+        yield return new WaitForSeconds(0.875f);
+        
+        playable.Stop();
+    }
+    
+    private IEnumerator PreviousPageAnimation()
+    {
+        playable.Play(previousPageTimeline, DirectorWrapMode.Hold);
+
+        page--;
+        
+        SetPageText();
+
+        yield return new WaitForSeconds(0.875f);
+        
+        playable.Stop();
+    }
+    
+
+    private IEnumerator OpenJournalAnimation()
+    {
+        playable.Play(openJournalTimeline, DirectorWrapMode.Hold);
 
         inJournal = true;
 
@@ -52,9 +103,9 @@ public class JournalController : MonoBehaviour
         playable.Stop();
     }
 
-    private IEnumerator PlayAnimationBackwards()
+    private IEnumerator CloseJournalAnimation()
     {
-        playable.Play(timelineBackwards, DirectorWrapMode.None);
+        playable.Play(closeJournalTimeline, DirectorWrapMode.None);
 
         yield return new WaitForSeconds(0.625f);
 
