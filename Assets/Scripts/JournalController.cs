@@ -41,23 +41,27 @@ public class JournalController : MonoBehaviour
 
     private IEnumerator PlayAnimation()
     {
-        playable.Play(timeline);
-        
+        playable.Play(timeline, DirectorWrapMode.Hold);
+
         inJournal = true;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.875f);
 
         open = true;
+        
+        playable.Stop();
     }
 
     private IEnumerator PlayAnimationBackwards()
     {
-        playable.Play(timelineBackwards);
+        playable.Play(timelineBackwards, DirectorWrapMode.None);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.625f);
 
         open = false;
         
         inJournal = false;
+        
+        playable.Stop();
     }
 }
