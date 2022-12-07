@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class DialogManager : MonoBehaviour
 {
     private AudioManager AudioManager;
+    private JournalController JournalController;
     
     private Animator uiAnim;
     private Queue<Sentence> sentences;
@@ -29,6 +32,7 @@ public class DialogManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        JournalController = FindObjectOfType<JournalController>();
         AudioManager = AudioManager.instance;
 
         uiAnim = GameObject.Find("UI").GetComponent<Animator>();
@@ -93,6 +97,8 @@ public class DialogManager : MonoBehaviour
 
     private void StartDialog(Dialog dialog)
     {
+        currentDialog = dialog;
+
         if (dialog.dependance == "talkedToEveryone")
         {
             EndDialog();
@@ -106,7 +112,6 @@ public class DialogManager : MonoBehaviour
                 interactController.SetMadeRightChoice(false);
             }
 
-            currentDialog = dialog;
             phoenix.SetActive(true);
         }
         else if (dialog.optionText == "Never mind.")
@@ -172,9 +177,14 @@ public class DialogManager : MonoBehaviour
                 playerWalking.SetCanWalk(true);
                 interactController.SetInDialog(false);
                 uiAnim.SetBool("Enabled", false);
-                
+
                 StopCoroutine(currentTypeSentenceCoroutine);
             }
+        }
+
+        if(currentDialog.journalAddition != String.Empty)
+        {
+            JournalController.AddPage(currentDialog.journalAddition);
         }
     }
 

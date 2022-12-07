@@ -116,6 +116,11 @@ public class Interact : MonoBehaviour
         }
     }
 
+    public bool GetInDialog()
+    {
+        return inDialog;
+    }
+
     public void SetMadeRightChoice(bool state)
     {
         madeRightChoice = state;
