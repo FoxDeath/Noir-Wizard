@@ -36,8 +36,10 @@ public class JournalController : MonoBehaviour
     [SerializeField] private TMP_Text rightNextText;
     [SerializeField] private TMP_Text leftPreviousText;
     [SerializeField] private TMP_Text rightPreviousText;
+    
+    [SerializeField] private TMP_Text journalPopUp;
 
-    private List<Page> pages = new List<Page>();
+    [SerializeField] private List<Page> pages = new List<Page>();
 
     private int page = 1;
     
@@ -92,7 +94,9 @@ public class JournalController : MonoBehaviour
             pages.Add(newPage);
 
             leftText.text = newPage.leftText;
-            
+     
+            StartCoroutine(JournalPopUpBehaviour());
+
             return;
         }
 
@@ -104,6 +108,8 @@ public class JournalController : MonoBehaviour
             }
         }
         
+        StartCoroutine(JournalPopUpBehaviour());
+
         if(pages.Last().rightText != String.Empty)
         {
             Page newPage = new Page();
@@ -123,6 +129,25 @@ public class JournalController : MonoBehaviour
         }
     }
 
+    private IEnumerator JournalPopUpBehaviour()
+    {
+        while(journalPopUp.alpha < 1)
+        {
+            journalPopUp.alpha += Time.deltaTime;
+
+            yield return null;
+        }
+        
+        yield return new WaitForSeconds(1f);
+        
+        while(journalPopUp.alpha > 0)
+        {
+            journalPopUp.alpha -= Time.deltaTime;
+
+            yield return null;
+        }
+    }
+
     private IEnumerator NextPageAnimation()
     {
         playable.Play(nextPageTimeline, DirectorWrapMode.Hold);
@@ -133,20 +158,24 @@ public class JournalController : MonoBehaviour
 
         rightNextText.text = pages[page - 1].leftText;
         
-        yield return new WaitUntil(() => playable.time > (float)nextPageTimeline.duration / 4f);
+        yield return new WaitUntil(() => playable.time > nextPageTimeline.duration / 4f);
+        
         rightText.text = pages[page - 1].rightText;
 
+        yield return new WaitUntil(() => playable.time > nextPageTimeline.duration / 1.33f);
         
-        yield return new WaitUntil(() => playable.time > (float)nextPageTimeline.duration / 1.33f);
+        leftNextText.text = "";
         
+        leftText.text = "";
+
+        yield return new WaitUntil(() => playable.time > nextPageTimeline.duration - 0.01f);
+
         leftText.text = pages[page - 1].leftText;
         
         yield return new WaitUntil(() => playable.time == nextPageTimeline.duration);
 
-        leftNextText.text = "";
-
         rightNextText.text = "";
-
+        
         playable.Stop();
     }
     
@@ -160,19 +189,23 @@ public class JournalController : MonoBehaviour
 
         leftPreviousText.text = pages[page - 1].rightText;
 
-        yield return new WaitUntil(() => playable.time > (float)previousPageTimeline.duration / 4f);
+        yield return new WaitUntil(() => playable.time > previousPageTimeline.duration / 4f);
         
         leftText.text = pages[page - 1].leftText;
 
-        yield return new WaitUntil(() => playable.time > (float)previousPageTimeline.duration / 1.33f);
+        yield return new WaitUntil(() => playable.time > previousPageTimeline.duration / 1.33f);
+        
+        rightPreviousText.text = "";
+        
+        rightText.text = "";
+
+        yield return new WaitUntil(() => playable.time > previousPageTimeline.duration - 0.01f);
         
         rightText.text = pages[page - 1].rightText;
-
+        
         yield return new WaitUntil(() => playable.time == previousPageTimeline.duration);
 
         leftPreviousText.text = "";
-
-        rightPreviousText.text = "";
 
         playable.Stop();
     }

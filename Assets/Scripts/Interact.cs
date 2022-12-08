@@ -58,7 +58,7 @@ public class Interact : MonoBehaviour
 
     public void Interacting(InputAction.CallbackContext context)
     {
-        if(context.phase != InputActionPhase.Started)
+        if(context.phase != InputActionPhase.Started || JournalController.inJournal)
         {
             return;
         }
