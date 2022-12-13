@@ -158,16 +158,16 @@ public class JournalController : MonoBehaviour
     {
         while(text.alpha < 1)
         {
-            text.alpha += Time.fixedTime;
+            text.alpha += Time.deltaTime;
 
             yield return null;
         }
         
         yield return new WaitForSecondsRealtime(1f);
         
-        while(journalPopUp.alpha > 0)
+        while(text.alpha > 0)
         {
-            text.alpha -= Time.fixedTime;
+            text.alpha -= Time.deltaTime;
 
             yield return null;
         }
@@ -177,16 +177,16 @@ public class JournalController : MonoBehaviour
     {
         while(text.alpha < 1)
         {
-            text.alpha += Time.fixedTime;
+            text.alpha += Time.deltaTime;
 
             yield return null;
         }
         
         yield return new WaitForSecondsRealtime(1f);
         
-        while(journalPopUp.alpha > 0)
+        while(text.alpha > 0)
         {
-            text.alpha -= Time.fixedTime;
+            text.alpha -= Time.deltaTime;
 
             yield return null;
         }

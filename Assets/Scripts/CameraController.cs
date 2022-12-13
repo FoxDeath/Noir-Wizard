@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class CameraController : MonoBehaviour
 {
-    private Transform player;
+    [SerializeField] private PlayableAsset endingTimeline;
+    
+    public Transform player;
     private Camera cam;
     private Transform boxCenter;
     private Transform obstruction;
@@ -92,26 +95,6 @@ public class CameraController : MonoBehaviour
 
         List<RaycastHit> hits = new();
 
-        /*if(hit1.Length != 0)
-        {
-            hits.AddRange(hit1);
-        }
-        
-        if(hit2.Length != 0)
-        {
-            hits.AddRange(hit2);
-        }
-        
-        if(hit3.Length != 0)
-        {
-            hits.AddRange(hit3);
-        }
-        
-        if(hit4.Length != 0)
-        {
-            hits.AddRange(hit4);
-        }*/
-
         if(hitBox.Length != 0)
         {
             hits.AddRange(hitBox);
@@ -196,4 +179,22 @@ public class CameraController : MonoBehaviour
         target_Offset = transform.position - player.position;
         valuesSet = true;
     }
+
+    public void EndGame(Transform phoenixTransform)
+    {
+        MainMenu.GameStarted = false;
+        
+        GetComponent<PlayableDirector>().Play(endingTimeline);
+
+        StartCoroutine(EndGameBehaviour());
+    }
+
+    private IEnumerator EndGameBehaviour()
+    {
+        yield return new WaitForSeconds(5f);
+
+        endScreen.SetActive(true);
+    }
+
+    public GameObject endScreen;
 }

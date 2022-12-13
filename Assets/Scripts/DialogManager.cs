@@ -99,11 +99,11 @@ public class DialogManager : MonoBehaviour
     {
         currentDialog = dialog;
 
-        if (dialog.dependance == "talkedToEveryone")
+        if(dialog.dependance == "talkedToEveryone")
         {
             EndDialog();
 
-            if(dialog.sentences[0].name.ToString() == "true")
+            if(dialog.sentences[0].name == "true")
             {
                 interactController.SetMadeRightChoice(true);
             }
@@ -112,7 +112,7 @@ public class DialogManager : MonoBehaviour
                 interactController.SetMadeRightChoice(false);
             }
 
-            phoenix.SetActive(true);
+            StartCoroutine(EndGame());
         }
         else if (dialog.optionText == "Never mind.")
         {
@@ -164,7 +164,7 @@ public class DialogManager : MonoBehaviour
 
         if(currentDialogs.Length != 0 && currentDialogs[0].optionText == "phoenix")
         {
-            print("game ends");
+            EndEndGame();
         }
         else
         {
@@ -195,7 +195,7 @@ public class DialogManager : MonoBehaviour
         }
         else if(Interact.peopleTalkedTo == 11 && !Interact.talkedToBarBarOwnerOrDimitriAboutCat)
         {
-            objective = "<s>Objectives" + "\n" + $"Investigate the scene [{Interact.peopleTalkedTo}/11]</s>" + "\n";
+            objective = "Objectives" + "\n" + $"<s>Investigate the scene [{Interact.peopleTalkedTo}/11]</s>" + "\n";
         }
         else if(Interact.peopleTalkedTo == 11 && Interact.talkedToBarBarOwnerOrDimitriAboutCat)
         {
@@ -216,6 +216,15 @@ public class DialogManager : MonoBehaviour
         }
         
         JournalController.AddObjective(objective);
+    }
+
+    private void EndEndGame()
+    {
+        FindObjectOfType<CameraController>().EndGame(phoenix.transform);
+        
+        
+        interactController.SetInDialog(false);
+        uiAnim.SetBool("Enabled", false);
     }
 
 
@@ -240,5 +249,18 @@ public class DialogManager : MonoBehaviour
             dialogText.text += letter;
             yield return new WaitForSecondsRealtime(0.015f);
         }
+    }
+
+    IEnumerator EndGame()
+    {
+        phoenix.SetActive(true);
+            
+        pileOfAsh.gameObject.SetActive(false);
+        
+        playerWalking.SetCanWalk(false);
+
+        yield return new WaitForSecondsRealtime(6f);
+        
+        playerWalking.SetCanWalk(true);
     }
 }

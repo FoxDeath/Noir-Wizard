@@ -60,7 +60,7 @@ public class Interact : MonoBehaviour
 
     public void Interacting(InputAction.CallbackContext context)
     {
-        if(context.phase != InputActionPhase.Started || JournalController.inJournal)
+        if(context.phase != InputActionPhase.Started || JournalController.inJournal || !MainMenu.GameStarted)
         {
             return;
         }
@@ -90,6 +90,11 @@ public class Interact : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if(!MainMenu.GameStarted)
+        {
+            return;
+        }
+        
         if (other.gameObject.tag.Equals("InteractObject"))
         {
             interactableObject = other.gameObject;
@@ -172,7 +177,7 @@ public class Interact : MonoBehaviour
                     peopleTalkedTo++;
                 }
 
-                if (talkedToBarry && talkedToArnold && talkedToBarTable && talkedToDimitri && talkedToDumpster && talkedToLois
+                if(talkedToBarry && talkedToArnold && talkedToBarTable && talkedToDimitri && talkedToDumpster && talkedToLois
                     && talkedToPersonOutside && talkedToPileOfAsh && talkedToPuke && talkedToSilvester && talkedToBarBarOwnerOrDimitriAboutCat
                     && talkedToToiletDoor)
                 {

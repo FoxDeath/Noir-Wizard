@@ -28,4 +28,9 @@ public class MainMenu : MonoBehaviour
         GameStarted = true;
         gameObject.SetActive(false);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
