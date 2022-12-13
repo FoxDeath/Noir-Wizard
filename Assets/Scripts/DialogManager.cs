@@ -186,6 +186,36 @@ public class DialogManager : MonoBehaviour
         {
             JournalController.AddPage(currentDialog.journalAddition);
         }
+
+        string objective = "";
+
+        if(Interact.peopleTalkedTo != 11 && !Interact.talkedToBarBarOwnerOrDimitriAboutCat)
+        {
+            objective = "Objectives" + "\n" + $"Investigate the scene [{Interact.peopleTalkedTo}/11]" + "\n";
+        }
+        else if(Interact.peopleTalkedTo == 11 && !Interact.talkedToBarBarOwnerOrDimitriAboutCat)
+        {
+            objective = "<s>Objectives" + "\n" + $"Investigate the scene [{Interact.peopleTalkedTo}/11]</s>" + "\n";
+        }
+        else if(Interact.peopleTalkedTo == 11 && Interact.talkedToBarBarOwnerOrDimitriAboutCat)
+        {
+            objective = "Time to investigate the ashes and make a decision";
+            
+            JournalController.AddObjective(objective);
+
+            return;
+        }
+
+        if(Interact.talkedToSilvester && !Interact.talkedToBarBarOwnerOrDimitriAboutCat)
+        {
+            objective += "Ask around about the cat";
+        }
+        else if(Interact.talkedToSilvester && Interact.talkedToBarBarOwnerOrDimitriAboutCat)
+        {
+            objective += "<s>Ask around about the cat</s>";
+        }
+        
+        JournalController.AddObjective(objective);
     }
 
 

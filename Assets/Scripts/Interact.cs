@@ -27,12 +27,14 @@ public class Interact : MonoBehaviour
     private static bool talkedToLois;
     private static bool talkedToBarry;
     private static bool talkedToArnold;
-    private static bool talkedToSilvester;
+    public static bool talkedToSilvester;
     private static bool talkedToDimitri;
     private static bool talkedToPhoenix;
     private static bool talkedToPersonOutside;
-    private static bool talkedToBarBarOwnerOrDimitriAboutCat;
+    public static bool talkedToBarBarOwnerOrDimitriAboutCat;
     private static bool madeRightChoice;
+
+    public static int peopleTalkedTo = 0;
 
     void Start()
     {
@@ -138,7 +140,12 @@ public class Interact : MonoBehaviour
         switch (currentInteract)
         {
             case "Dumpster":
-                talkedToDumpster = true;
+                if(!talkedToDumpster)
+                {
+                    talkedToDumpster = true;
+
+                    peopleTalkedTo++;
+                }
 
                 if (talkedToDimitri)
                 {
@@ -158,10 +165,16 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Pile Of Ash":
-                talkedToPileOfAsh = true;
+                if(!talkedToPileOfAsh)
+                {
+                    talkedToPileOfAsh = true;
+
+                    peopleTalkedTo++;
+                }
 
                 if (talkedToBarry && talkedToArnold && talkedToBarTable && talkedToDimitri && talkedToDumpster && talkedToLois
-                    && talkedToPersonOutside && talkedToPileOfAsh && talkedToPuke && talkedToSilvester)
+                    && talkedToPersonOutside && talkedToPileOfAsh && talkedToPuke && talkedToSilvester && talkedToBarBarOwnerOrDimitriAboutCat
+                    && talkedToToiletDoor)
                 {
                     foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
                     {
@@ -189,7 +202,12 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Puke":
-                talkedToPuke = true;
+                if(!talkedToPuke)
+                {
+                    talkedToPuke = true;
+                    
+                    peopleTalkedTo++;
+                }
 
                 if (talkedToBarry)
                 {
@@ -209,12 +227,23 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Toilet Door":
-                talkedToToiletDoor = true;
+                if(!talkedToToiletDoor)
+                {
+                    talkedToToiletDoor = true;
+                    
+                    peopleTalkedTo++;
+                }
+                
                 currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
 
-            case "Table":
-                talkedToBarTable = true;
+            case "Bar Table":
+                if(!talkedToBarTable)
+                {
+                    talkedToBarTable = true;
+                    
+                    peopleTalkedTo++;
+                }
                 currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
 
@@ -223,12 +252,17 @@ public class Interact : MonoBehaviour
                 {
                     currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                     talkedToLois = true;
+
+                    peopleTalkedTo++;
                 }
                 else
                 {
                     if (talkedToSilvester)
                     {
-                        talkedToBarBarOwnerOrDimitriAboutCat = true;
+                        if(!talkedToBarBarOwnerOrDimitriAboutCat)
+                        {
+                            talkedToBarBarOwnerOrDimitriAboutCat = true;
+                        } 
                         currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
 
                         foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
@@ -248,12 +282,22 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Barry":
-                talkedToBarry = true;
+                if(!talkedToBarry)
+                {
+                    talkedToBarry = true;
+
+                    peopleTalkedTo++;
+                }
                 currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
 
             case "Arnold":
-                talkedToArnold = true;
+                if(!talkedToArnold)
+                {
+                    talkedToArnold = true;
+
+                    peopleTalkedTo++;
+                }
                 currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
 
@@ -262,6 +306,8 @@ public class Interact : MonoBehaviour
                 {
                     currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                     talkedToSilvester = true;
+
+                    peopleTalkedTo++;
                 }
                 else
                 {
@@ -296,12 +342,17 @@ public class Interact : MonoBehaviour
                 {
                     currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                     talkedToDimitri = true;
+
+                    peopleTalkedTo++;
                 }
                 else
                 {
-                    if (talkedToSilvester)
+                    if(talkedToSilvester)
                     {
-                        talkedToBarBarOwnerOrDimitriAboutCat = true;
+                        if(!talkedToBarBarOwnerOrDimitriAboutCat)
+                        {
+                            talkedToBarBarOwnerOrDimitriAboutCat = true;
+                        }
                         currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
 
                         foreach (Dialog dialog in currentDialogTrigger.GetDialogs())
@@ -347,7 +398,12 @@ public class Interact : MonoBehaviour
                 break;
 
             case "Outsider":
-                talkedToPersonOutside = true;
+                if(!talkedToPersonOutside)
+                {
+                    peopleTalkedTo++;
+
+                    talkedToPersonOutside = true;
+                }
                 currentDialogs.Add(currentDialogTrigger.GetDialogs()[0]);
                 break;
         }

@@ -38,11 +38,15 @@ public class JournalController : MonoBehaviour
     [SerializeField] private TMP_Text rightPreviousText;
     
     [SerializeField] private TMP_Text journalPopUp;
+    [SerializeField] private TMP_Text objectivePopUp;
 
     [SerializeField] private List<Page> pages = new List<Page>();
 
     private int page = 1;
-    
+
+    private Coroutine jc;
+
+    private Coroutine oc;
         
     // Start is called before the first frame update
     void Start()
@@ -85,21 +89,6 @@ public class JournalController : MonoBehaviour
 
     public void AddPage(string pageText)
     {
-        if(pages.Count == 0)
-        {
-            Page newPage = new Page();
-
-            newPage.leftText = pageText;
-
-            pages.Add(newPage);
-
-            leftText.text = newPage.leftText;
-     
-            StartCoroutine(JournalPopUpBehaviour());
-
-            return;
-        }
-
         foreach(var page in pages)
         {
             if(page.leftText.Equals(pageText) || page.rightText.Equals(pageText))
@@ -107,8 +96,13 @@ public class JournalController : MonoBehaviour
                 return;
             }
         }
+
+        if(jc != null)
+        {
+            StopCoroutine(jc);
+        }
         
-        StartCoroutine(JournalPopUpBehaviour());
+        jc = StartCoroutine(JournalPopUpBehaviour(journalPopUp));
 
         if(pages.Last().rightText != String.Empty)
         {
@@ -129,20 +123,70 @@ public class JournalController : MonoBehaviour
         }
     }
 
-    private IEnumerator JournalPopUpBehaviour()
+    public void AddObjective(string objective)
     {
-        while(journalPopUp.alpha < 1)
+        if(pages[0].leftText.Equals(objective))
         {
-            journalPopUp.alpha += Time.deltaTime;
+            return;
+        }
+
+        if(pages[0].leftText.Length < objective.Length - 1 || objective.Equals("Time to investigate the ashes and make a decision"))
+        {
+            objectivePopUp.text = "New Objective added to Journal";
+        }
+        else
+        {
+            objectivePopUp.text = "Objective updated in Journal";
+        }        
+        
+        pages[0].leftText = objective;
+        
+        if(oc != null)
+        {
+            StopCoroutine(oc);
+        }
+            
+        oc = StartCoroutine(JournalPopUpBehaviour1(objectivePopUp));
+
+        if(page == 1)
+        {
+            leftText.text = pages[0].leftText;
+        }
+    }
+
+    private IEnumerator JournalPopUpBehaviour(TMP_Text text)
+    {
+        while(text.alpha < 1)
+        {
+            text.alpha += Time.fixedTime;
 
             yield return null;
         }
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         
         while(journalPopUp.alpha > 0)
         {
-            journalPopUp.alpha -= Time.deltaTime;
+            text.alpha -= Time.fixedTime;
+
+            yield return null;
+        }
+    }
+    
+    private IEnumerator JournalPopUpBehaviour1(TMP_Text text)
+    {
+        while(text.alpha < 1)
+        {
+            text.alpha += Time.fixedTime;
+
+            yield return null;
+        }
+        
+        yield return new WaitForSecondsRealtime(1f);
+        
+        while(journalPopUp.alpha > 0)
+        {
+            text.alpha -= Time.fixedTime;
 
             yield return null;
         }
