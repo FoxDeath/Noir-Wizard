@@ -43047,7 +43047,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Objectives updated
+  m_text: New Objective added to Journal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 364278af979d2418da0e80f5e135b4d4, type: 2}
   m_sharedMaterial: {fileID: 1198373599383408839, guid: 364278af979d2418da0e80f5e135b4d4,
@@ -43075,7 +43075,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.95
+  m_fontSize: 53.7
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
