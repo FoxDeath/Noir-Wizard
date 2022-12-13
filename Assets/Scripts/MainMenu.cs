@@ -1,14 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 
 public class MainMenu : MonoBehaviour
 {
-    public static bool GameStarted = false;
+    public static bool GameStarted;
 
     [SerializeField] PlayableDirector playable;
     [SerializeField] TimelineAsset timeline;
+
+    private void Start()
+    {
+        GameStarted = false;
+    }
+
 
     public void StartGame()
     {

@@ -41,7 +41,7 @@ public class Interact : MonoBehaviour
         nameText = GameObject.Find("UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         interactText = GameObject.Find("UI").transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         dialogManager = FindObjectOfType<DialogManager>();
-
+        peopleTalkedTo = 0;
         inDialog = false;
         talkedToDumpster = false;
         talkedToPileOfAsh = false;

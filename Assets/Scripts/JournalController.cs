@@ -52,7 +52,7 @@ public class JournalController : MonoBehaviour
     void Start()
     {
         Interact = FindObjectOfType<Interact>();
-        
+        inJournal = false;
         controls = new Input();
         controls.Enable();
     }

@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
 
     void Awake()
     {
+        GameIsPaused = false;
         control = new Input();
         control.Enable();
         audioManager = FindObjectOfType<AudioManager>();
@@ -60,6 +61,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(0);
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }
