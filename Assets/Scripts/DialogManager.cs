@@ -171,6 +171,8 @@ public class DialogManager : MonoBehaviour
             if (currentDialogs.Length > 1f && (currentDialog != null && currentDialog.dependance != "talkedToEveryone"))
             {
                 InitializeDialogs(currentDialogs);
+                
+                return;
             }
             else
             {
